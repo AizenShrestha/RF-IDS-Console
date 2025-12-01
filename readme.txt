@@ -14,7 +14,7 @@ To demonstrate a reproducible IDS pipeline with real-world flow statistics, clas
 ✔ Comes with a working Streamlit prototype
 
 🏗️ Project Structure
-RF_IDS_Project/
+RF_IDS_Console/
 │
 ├── app/                  # Streamlit web prototype
 │   └── app.py
