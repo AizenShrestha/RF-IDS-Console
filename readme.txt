@@ -11,8 +11,6 @@ To demonstrate a reproducible IDS pipeline with real-world flow statistics, clas
 ✔ Detects attacks using only network flow statistics
 ✔ Works on raw flow data (if features match the training format)
 ✔ Accepts preprocessed numeric test data
-✔ Handles imbalance using SMOTE
-✔ Includes SHAP explainability to show influential features
 ✔ Comes with a working Streamlit prototype
 
 🏗️ Project Structure
