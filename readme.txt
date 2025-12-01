@@ -39,7 +39,6 @@ RF-IDS-Console/
 │   ├── 01_eda_HIKARI2021.ipynb
 │   ├── 02_preprocessing.ipynb
 │   ├── 03_model_development.ipynb
-│   └── 04_SHAP_Explainability.ipynb
 │
 ├── assets/
 │
