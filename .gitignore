@@ -1,0 +1,15 @@
+**/.ipynb_checkpoints/
+
+__pycache__/
+
+# Raw dataset (very large, not required)
+dataset/raw/
+
+# Do NOT ignore processed CSVs — needed for validation!
+# Only ignore heavy arrays
+dataset/processed/*.npy
+
+# Ignore results, logs, generated figures
+results/
+
+X_test_proc_for_app.csv
