@@ -31,8 +31,8 @@ X_TEST_FILE = PROC_DIR / "X_test_proc.npy"
 Y_TEST_FILE = PROC_DIR / "y_test.csv"
 
 # Fixed operating threshold for the detection console
-# Chosen as a "balanced" sensitivity mode from validation experiments
-DETECTION_THRESHOLD = 0.60
+# Default high-sensitivity operating point (prioritises recall / attack detection)
+DETECTION_THRESHOLD = 0.40
 
 
 # ================================================================
@@ -258,7 +258,7 @@ def login_view():
 
 
 # ================================================================
-# 5) DETECTION VIEW (UPLOAD + PREDICT, FIXED 0.60 THRESHOLD)
+# 5) DETECTION VIEW (UPLOAD + PREDICT, FIXED 0.40 THRESHOLD)
 # ================================================================
 def detection_view(model, preproc):
     st.subheader("📡 Detection Console – Flow-Based IDS")
@@ -275,7 +275,7 @@ def detection_view(model, preproc):
     with col1:
         st.metric("Dataset", "HIKARI-2021")
     with col2:
-        st.metric("Operating mode", "Moderate-Sensitivity")
+        st.metric("Operating mode", "High-Sensitivity (default)")
   
     # Threshold card
     st.markdown(
@@ -283,9 +283,10 @@ def detection_view(model, preproc):
         <div class="rf-card">
             <span class="rf-pill">Threshold {DETECTION_THRESHOLD:.2f}</span>
             <p style="margin-top:0.6rem;">
-                The IDS uses a fixed decision threshold of <strong>{DETECTION_THRESHOLD:.2f}</strong>,
-                chosen during validation as a practical compromise between limiting false alerts
-                and maintaining strong attack detection.
+                The IDS uses a fixed decision threshold of <strong>{DETECTION_THRESHOLD:.2f}</strong>
+                in the detection console. This is a <strong>high-sensitivity</strong> operating point
+                selected during validation to minimise missed attacks, accepting extra alerts as a
+                trade-off.
             </p>
         </div>
         """,

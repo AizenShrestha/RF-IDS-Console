@@ -90,7 +90,8 @@ Open notebooks in this order:
 
 1️⃣ 01_eda_HIKARI2021.ipynb
 2️⃣ 02_preprocessing.ipynb — scaling, SMOTE, feature prep
-3️⃣ 03_model_development.ipynb — train RF, evaluate, tune threshold + SHAP 
+3️⃣ 03_model_development.ipynb — train RF, evaluate, tune threshold, SHAP results
+
 
 The exported model and preprocessing artifacts are used by the Streamlit app.
 
@@ -114,7 +115,3 @@ Feature schema used during training & deployment
 A deterministic Streamlit inference console
 
 Offline SHAP explainability (not part of the app UI)
-
-All experiments and predictions are reproducible by running the notebooks and app.
-
-All experiments and predictions can be reproduced by running the provided notebooks and application.
