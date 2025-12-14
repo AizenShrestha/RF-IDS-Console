@@ -75,7 +75,7 @@ def make_predictions(df_raw: pd.DataFrame, model, preproc, threshold: float):
     # Keep original for merging with predictions later
     df_original = df_raw.copy()
 
-    # 1) Remove non-numeric columns (IPs, hostnames, timestamps, etc.)
+    # 1) ignore non-numeric columns (IPs, hostnames, timestamps, etc.)
     df_numeric = df_raw.select_dtypes(include=[np.number])
     dropped_cols = [c for c in df_original.columns if c not in df_numeric.columns]
 
