@@ -11,10 +11,10 @@ from sklearn.metrics import (
     classification_report,
 )
 
-# ================================================================
+
 # 1) PROJECT PATHS AND ARTEFACT LOCATIONS
-# ================================================================
-try:
+
+try: 
     BASE_DIR = Path(__file__).resolve().parent
 except NameError:
     # Fallback when running from interactive / notebook environments
@@ -35,9 +35,9 @@ Y_TEST_FILE = PROC_DIR / "y_test.csv"
 DETECTION_THRESHOLD = 0.40
 
 
-# ================================================================
+
 # 2) LOADING MODEL + PREPROCESSOR
-# ================================================================
+
 @st.cache_resource
 def load_model():
     """Load the trained Random Forest classifier from disk."""
@@ -54,9 +54,9 @@ def load_preprocessor():
     return joblib.load(PREPROC_FILE)
 
 
-# ================================================================
+
 # 3) PREDICTION PIPELINE (RAW + PREPROCESSED SUPPORT)
-# ================================================================
+
 def make_predictions(df_raw: pd.DataFrame, model, preproc, threshold: float):
     """
     Core prediction helper used by the detection console.
@@ -99,10 +99,10 @@ def make_predictions(df_raw: pd.DataFrame, model, preproc, threshold: float):
     missing_cols = list(required - present)
     overlap = present & required
 
-    # ------------------------------------------------------------
+    
     # RAW FLOW MODE:
     #   All training feature names are present → treat as raw HIKARI-style flows
-    # ------------------------------------------------------------
+    
     if len(missing_cols) == 0:
         # Reorder numeric columns to match training order exactly
         df_numeric = df_numeric[expected_cols]
@@ -122,10 +122,10 @@ def make_predictions(df_raw: pd.DataFrame, model, preproc, threshold: float):
         X_proc = preproc.transform(df_numeric)
         mode = "RAW FLOW FEATURES"
 
-    # ------------------------------------------------------------
+  
     # PARTIAL RAW MODE:
     #   Some required features present but not all → reject as unsafe
-    # ------------------------------------------------------------
+  
     elif len(overlap) > 0:
         raise ValueError(
             "❌ Raw flow data detected but rejected because some required "
@@ -136,10 +136,10 @@ def make_predictions(df_raw: pd.DataFrame, model, preproc, threshold: float):
               "produce the full set of flow metrics used during training."
         )
 
-    # ------------------------------------------------------------
+    
     # PREPROCESSED NUMERIC MODE:
     #   No overlap with training feature names → assume numeric vectors
-    # ------------------------------------------------------------
+    
     else:
         # Reject NaNs in numeric vectors
         if df_numeric.isnull().any().any():
@@ -185,9 +185,9 @@ def make_predictions(df_raw: pd.DataFrame, model, preproc, threshold: float):
     return result, dropped_cols, mode
 
 
-# ================================================================
+
 # 4) VALIDATION HELPER – HIKARI-2021 TEST SPLIT
-# ================================================================
+
 @st.cache_data
 def load_hikari_test():
     """Load preprocessed HIKARI-2021 test split for validation."""
@@ -231,9 +231,9 @@ def evaluate_on_hikari(model, threshold: float):
 
     return metrics
 
-# ================================================================
+
 # 0) SIMPLE LOGIN / AUTH GATE
-# ================================================================
+
 def login_view():
     with st.form("login_form"):
         st.markdown("### 🔐 Login")
@@ -248,7 +248,7 @@ def login_view():
 
     # Authentication logic
     if submitted:
-        if username == "admin" and password == "password123":
+        if username == "admin" and password == "12345":
             st.session_state.logged_in = True
             st.session_state.username = username
             st.rerun()
@@ -257,9 +257,9 @@ def login_view():
 
 
 
-# ================================================================
+
 # 5) DETECTION VIEW (UPLOAD + PREDICT, FIXED 0.40 THRESHOLD)
-# ================================================================
+
 def detection_view(model, preproc):
     st.subheader("📡 Detection Console – Flow-Based IDS")
 
@@ -371,9 +371,9 @@ def detection_view(model, preproc):
             "Preprocessed mode: input is assumed to already follow the training pipeline."
         )
 
-        # ------------------------------------------------------------
+     
         # Per-flow predictions (detailed view, 81 features preserved)
-        # ------------------------------------------------------------
+      
         st.markdown("### 🧠 Prediction results")
 
         # Small badge to make it clear why the table is wide
@@ -401,9 +401,9 @@ def detection_view(model, preproc):
                 + ", ".join(dropped_cols)
             )
 
-        # ------------------------------------------------------------
+     
         # Summary statistics
-        # ------------------------------------------------------------
+       
         st.markdown("### 📊 Summary of predictions")
 
         counts = (
@@ -450,9 +450,9 @@ def detection_view(model, preproc):
 
 
 
-# ================================================================
+
 # 6) VALIDATION VIEW (HIKARI-2021 TEST SPLIT WITH THRESHOLD SLIDER)
-# ================================================================
+
 def validation_view(model):
     st.subheader("🧪 Model Validation – Test Split")
 
@@ -695,9 +695,9 @@ def inject_css():
 
 
 
-# ================================================================
+
 # 7) MAIN APP ENTRYPOINT
-# ================================================================
+
 def main():
 
     # must be the first Streamlit call
